@@ -35,3 +35,4 @@ def listdir_countfile(directory):
     """ Показывает количесво доступных файлов """
     files = os.listdir(directory)
     return len(files)
+#eeeeeeeeeeeeeeeeeeeee
