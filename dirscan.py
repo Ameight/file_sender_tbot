@@ -1,8 +1,7 @@
 import os
 import pathlib
 
-
-directory = 'tmp/'
+# directory = 'tmp/'
 
 def listdir_base(directory):
     """ Показывает доступные файлы """
@@ -35,4 +34,3 @@ def listdir_countfile(directory):
     """ Показывает количесво доступных файлов """
     files = os.listdir(directory)
     return len(files)
-#eeeeeeeeeeeeeeeeeeeee
