@@ -35,9 +35,9 @@ def listdir_countfile(directory):
     files = os.listdir(directory)
     return len(files)
 
-#Создание репозиотрия пользователя, если он уже есть - вернет 1
+# Создание репозиотрия пользователя, если он уже есть - вернет 1
 # если его нет, создаёт его и возвращает 0
-def get_file_in_dir(directory, name):
+def create_dir(directory, name):
     """ Создание и проверка репозиотрия пользователя """
     nmdir= directory + name
     if os.path.exists(nmdir):
@@ -46,6 +46,7 @@ def get_file_in_dir(directory, name):
         os.mkdir(nmdir)
         return 0
 
+# Показывает доступные файлы для пользователя
 def listdir_user(diruser):
     """ Показывает доступные файлы """
     files = os.listdir(diruser)

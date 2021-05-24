@@ -12,17 +12,19 @@ from aiogram.utils.markdown import text, bold, italic, code, pre
 from aiogram.types import ParseMode, InputMediaPhoto, InputMediaVideo, ChatActions, InputFile
 
 
-from dirscan import listdir, listdir_returnpath, listdir_countfile, get_file_in_dir, listdir_user, listdir_returnpath_user
+from dirscan import listdir, listdir_countfile, create_dir, listdir_user, listdir_returnpath_user
 from config import TOKEN
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 
-directory = 'tmp/'
+directory = 'user_files/'
 
 #Отправляет список команд в ответ на /start
 @dp.message_handler(commands=['start'])
 async def process_start_command(message: types.Message):
+    if (os.path.exists(directory) == False):
+        os.mkdir(directory)
     await message.reply('Привет!\nС помощью команды /help, ты сможешь узнать список доступных команд!')
 
 #Отправляет список команд в ответ на /help
@@ -40,7 +42,7 @@ async def process_alle_command(message: types.Message):
     name = message.from_user.username
     diruser = directory + name
 
-    if(get_file_in_dir(directory, name) == 0): 
+    if(create_dir(directory, name) == 0): 
         msg = text('Репозитрий для вас создан!',
             'У вас пока нет файлов для просмотра, начните пользоваться системой !\n',
             'Нажимайте кнопку "Синхронизировать с telegram"')
@@ -85,7 +87,6 @@ async def filter(msg: types.Message):
                         'команда', code('/help'), emojize(':ok_hand:')) 
         await msg.reply(message_text, parse_mode=ParseMode.MARKDOWN)
 
-
 #Отправка файлов#
 # @dp.message_handler()
 # async def filter(msg: types.Message):
@@ -107,7 +108,6 @@ async def filter(msg: types.Message):
 #                         '\nЯ просто напомню,', 'что есть',
 #                         code('команда'), '/help', emojize(':ok_hand:')) 
 #     await msg.reply(message_text, parse_mode=ParseMode.MARKDOWN)
-
 
 if __name__ == '__main__':
     executor.start_polling(dp)
