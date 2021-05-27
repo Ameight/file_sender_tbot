@@ -68,3 +68,6 @@ def listdir_returnpath_user(diruser, number):
             if(i == number):
                 file_path = file_path + files[i]
                 return file_path
+
+def take_file_from_sql():
+    """ """

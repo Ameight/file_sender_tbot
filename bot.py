@@ -25,19 +25,24 @@ directory = 'user_files/'
 async def process_start_command(message: types.Message):
     if (os.path.exists(directory) == False):
         os.mkdir(directory)
-    await message.reply('Привет!\nС помощью команды /help, ты сможешь узнать список доступных команд!')
+    await message.reply('Привет!\nС помощью команды /help, ты сможешь узнать как пользоваться ботом и список доступных команд!')
 
 #Отправляет список команд в ответ на /help
 @dp.message_handler(commands=['help'])
 async def process_help_command(message: types.Message):
-    msg = text(bold('Я могу ответить на следующие команды:'),
-                    '/all - посомотреть список всех отчётов, доступных для просмотра, доступных вам. ',
-                    message.from_user.username, sep='\n')
+    msg = text('Доброго времени суток!',
+                        'Если ты пользовался системой сбора данных, с которой я связан, '
+                        'то я проверю есть ли у меня для тебя доступные отчёты, '
+                        'которые ты составлял ранее, просто введи команду ' + code('/all'),
+                        '/all - посомотреть список всех отчётов, доступных для просмотра, доступных вам.',
+                        'Если ты только запустил меня, то перед работой с системой нажми на кнопку ' + bold("Синхронизировать с Telegram"),
+                        'Введи там свой никнейм в Telegram: ' + bold(message.from_user.username),
+                        sep='\n\n')
     await message.reply(msg, parse_mode=ParseMode.MARKDOWN)
 
 #Отправляет список файлов доступных для отправки определённому пользователю
 @dp.message_handler(commands=['all'])
-async def process_alle_command(message: types.Message):
+async def process_all_command(message: types.Message):
 
     name = message.from_user.username
     diruser = directory + name
@@ -59,9 +64,9 @@ async def process_alle_command(message: types.Message):
 @dp.message_handler()
 async def filter(msg: types.Message):
 
-    di = msg.text                       #Записывает текст сообщения
-    name = msg.from_user.username       #Имя пользователя
-    dirname = directory + name + '/'    #Путь к папке пользователя
+    di = msg.text                       # Записывает текст сообщения
+    name = msg.from_user.username       # Имя пользователя
+    dirname = directory + name + '/'    # Путь к папке пользователя
 
     if(di.isdigit()):
         tmp = int(msg.text)
@@ -69,7 +74,7 @@ async def filter(msg: types.Message):
             
             user_id = msg.from_user.id
 
-            await bot.send_chat_action(user_id, ChatActions.UPLOAD_DOCUMENT) #Уведомление об отправки файла
+            await bot.send_chat_action(user_id, ChatActions.UPLOAD_DOCUMENT) # Уведомление об отправки файла
             await asyncio.sleep(1)  # скачиваем файл и отправляем его пользователю
 
             p = open(listdir_returnpath_user(dirname, tmp), 'rb')
@@ -83,8 +88,7 @@ async def filter(msg: types.Message):
             await msg.reply(p, parse_mode=ParseMode.MARKDOWN)
     else:
         message_text = text(emojize('Я не знаю, что с этим делать :astonished:'),
-                        '\nЯ просто напомню,', 'что есть',
-                        'команда', code('/help'), emojize(':ok_hand:')) 
+                        '\nНапоминаю, что есть команда /help', emojize(':ok_hand:')) 
         await msg.reply(message_text, parse_mode=ParseMode.MARKDOWN)
 
 #Отправка файлов#
