@@ -15,7 +15,10 @@ String           | String        | blob             | date
 
 Для конкретики приведу диаграмму состояний:
 
-![statechart](\resources\statechart_diagram.png)
+<div align="center">
+<img src=resources\statechart_diagram.png >
+<p>Диаграмма состояний</p>
+</div>
 
 ## Описание фиксов
 
@@ -24,4 +27,8 @@ String           | String        | blob             | date
 Бот запоминает состояние после команды ```/all```. При отправки сообщения не содержащего число, бот выходит из состояния. 
 Например:
 
-![statechart](\resources\FSM_test.png)
+
+<div align="center">
+<img src=resources\FSM_test.png >
+<p>Тест FSM</p>
+</div>
