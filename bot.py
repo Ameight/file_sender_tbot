@@ -15,7 +15,7 @@ from aiogram.types import ParseMode, InputMediaPhoto, InputMediaVideo, ChatActio
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from fsm_stage import TestStates
-# FSM
+# FOR FSM
 
 from dirscan import listdir, listdir_countfile, create_dir, listdir_user, listdir_returnpath_user
 from config import TOKEN
